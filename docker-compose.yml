@@ -1,0 +1,16 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine ## ui 사용하는 경량화 이미지
+    container_name: rabbitmq_container
+    volumes:
+      - ./.docker/rabbitmq/etc/:/etc/rabbitmqp
+      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq
+      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "rabbitmq-cookies"
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER} ## 디폴트값 추후 add
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS} ## 디폴트값 추후 set
